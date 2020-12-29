@@ -1,39 +1,19 @@
 ﻿using System;
 using System.IO;
-using System.IO.MemoryMappedFiles;
 using System.Text;
 using Ionic.Zlib;
+using balsa.shared;
 
 namespace balsa.archives {
-    public class ArchiveFileSource {
+    public class ArchiveFileSource : FileSource {
         internal readonly ArchiveFile archive;
-        internal readonly string filePath;
 
-        private readonly MemoryMappedFile file;
-        internal readonly MemoryMappedViewStream stream;
-        internal readonly BinaryReader reader;
-        private readonly FileInfo fileInfo;
-
-        internal long fileSize => fileInfo.Length;
         internal Encoding stringEncoding => archive.encoding;
 
-        internal ArchiveFileSource(string filePath, ArchiveFile archive) {
-            this.filePath = filePath;
+        internal ArchiveFileSource(string filePath, ArchiveFile archive) :
+            base(filePath) {
             this.archive = archive;
-            fileInfo = new FileInfo(filePath);
             archive.source = this;
-            var baseStream = new FileStream(
-                filePath, FileMode.Open,
-                FileAccess.Read, FileShare.ReadWrite
-            );
-            file = MemoryMappedFile.CreateFromFile(
-                baseStream, null, 0, MemoryMappedFileAccess.Read,
-                HandleInheritability.None, false
-            );
-            stream = file.CreateViewStream(
-                0, 0, MemoryMappedFileAccess.Read
-            );
-            reader = new BinaryReader(stream);
         }
 
         internal dynamic ReadPrefix(int prefixLength) {
