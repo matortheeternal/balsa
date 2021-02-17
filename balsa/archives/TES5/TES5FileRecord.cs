@@ -1,4 +1,4 @@
-﻿namespace balsa.archives.TES5 {
+﻿namespace balsa.archives {
     public class TES5FileRecord : FileRecord {
         public static TES5FileRecord Read(ArchiveFileSource source) {
             return new TES5FileRecord() {

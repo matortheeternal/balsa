@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace balsa.archives.TES5 {
+namespace balsa.archives {
     public class TES5ArchiveHeader {
         internal byte[] fileId;
         internal UInt32 version;

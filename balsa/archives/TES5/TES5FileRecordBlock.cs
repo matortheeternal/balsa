@@ -1,4 +1,4 @@
-﻿namespace balsa.archives.TES5 {
+﻿namespace balsa.archives {
     public class TES5FileRecordBlock : FileRecordBlock {
         internal static TES5FileRecordBlock Read(FolderRecord folderRecord) {
             var block = new TES5FileRecordBlock() { folderRecord = folderRecord };

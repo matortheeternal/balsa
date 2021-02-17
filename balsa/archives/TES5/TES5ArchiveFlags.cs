@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace balsa.archives.TES5 {
+namespace balsa.archives {
     public class TES5ArchiveFlags : Flags {
         public static List<string> archiveFlags = new List<string>() {
             "Include Directory Names",

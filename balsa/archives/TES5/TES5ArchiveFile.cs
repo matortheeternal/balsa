@@ -1,12 +1,14 @@
 ﻿using System;
 using System.IO;
 
-namespace balsa.archives.TES5 {
-    // https://en.uesp.net/wiki/Tes5Mod:Archive_File_Format
+namespace balsa.archives {
+    // https://en.uesp.net/wiki/Skyrim_Mod:Archive_File_Format
     public class TES5ArchiveFile : ArchiveFile {
         internal TES5ArchiveHeader header;
         internal TES5FolderRecord[] folderRecords;
         internal string[] fileNames;
+
+        public TES5ArchiveFile(string fileName) : base(fileName) { }
 
         public override bool hasDirectoryNames {
             get => header.archiveFlags.HasFlag("Include Directory Names");

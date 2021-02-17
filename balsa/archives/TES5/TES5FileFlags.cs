@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace balsa.archives.TES5 {
+namespace balsa.archives {
     public class TES5FileFlags : Flags {
         public static List<string> fileFlags = new List<string>() {
             "Meshes",
