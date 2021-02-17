@@ -11,7 +11,7 @@ namespace balsa.stringtables.TES5 {
         public string data {
             get {
                 source.stream.Position = offset;
-                return source.ReadStringData();
+                return source.ReadString(stringFile.prefixLength);
             }
         }
     }

@@ -6,6 +6,8 @@ namespace balsa.stringtables.TES5 {
         internal UInt32 dataSize;
         internal TES5DirectoryEntry[] directoryEntries;
 
+        public TES5StringFile(string filename) : base(filename) {}
+
         internal override void ReadHeader() {
             count = source.reader.ReadUInt32();
             dataSize = source.reader.ReadUInt32();

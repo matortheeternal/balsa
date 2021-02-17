@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <Folder Include="archives\SSE\" />
+    <Folder Include="folders\" />
   </ItemGroup>
 
   <ItemGroup>

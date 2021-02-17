@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text;
+using System.IO;
 
 namespace balsa.stringtables {
     public class StringFile {
@@ -7,9 +8,26 @@ namespace balsa.stringtables {
 
         internal string filename;
         internal StringFileSource source;
+        internal int prefixLength;
 
         internal virtual Encoding encoding => windows1252;
         public string filePath => source?.filePath;
+
+        public StringFile(string filename) {
+            this.filename = filename;
+            var ext = Path.GetExtension(filename).ToLower();
+            switch (ext) {
+                case ".strings":
+                    prefixLength = 0;
+                    break;
+                case ".ilstrings":
+                case ".dlstrings":
+                    prefixLength = 4;
+                    break;
+                default:
+                    throw new Exception("Unknown string file extension");
+            }
+        }
 
         internal virtual void ReadHeader() {
             throw new NotImplementedException();
