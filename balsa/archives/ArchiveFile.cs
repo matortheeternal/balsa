@@ -7,7 +7,7 @@ namespace balsa.archives {
     public class ArchiveFile : FileContainer {
         static readonly Encoding windows1252 = Encoding.GetEncoding(1252);
 
-        internal string filename;
+        internal string fileName;
         internal ArchiveFileSource source;
 
         internal virtual bool compressed => false;
@@ -20,6 +20,10 @@ namespace balsa.archives {
         public virtual bool embedFileNames => false;
 
         public override string path => filePath;
+
+        public ArchiveFile(string fileName) {
+            this.fileName = fileName;
+        }
 
         internal virtual void ReadHeader() {
             throw new NotImplementedException();
