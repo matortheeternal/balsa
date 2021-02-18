@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 
 namespace balsa.setup {
     public class AssetManager {
@@ -12,6 +13,7 @@ namespace balsa.setup {
 
         public AssetManager(Game game) {
             this.game = game;
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             var prefix = $"balsa.archives.{game.abbreviation}";
             archiveFileType = Type.GetType($"{prefix}ArchiveFile");
         }
