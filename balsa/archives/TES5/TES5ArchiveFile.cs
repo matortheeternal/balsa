@@ -4,7 +4,7 @@ using System.IO;
 namespace balsa.archives {
     // https://en.uesp.net/wiki/Skyrim_Mod:Archive_File_Format
     public class TES5ArchiveFile : ArchiveFile {
-        internal TES5ArchiveHeader header;
+        public TES5ArchiveHeader header { get; internal set; }
         internal TES5FolderRecord[] folderRecords;
         internal string[] fileNames;
 

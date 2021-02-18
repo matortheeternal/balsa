@@ -2,6 +2,8 @@
 using balsa.setup;
 using balsa.archives;
 using balsa;
+using System.Linq;
+using System.Text;
 
 namespace Tests.archives {
     public class TES5ArchiveFileTest {
@@ -16,8 +18,21 @@ namespace Tests.archives {
         }
 
         [Test]
-        public void Test1() {
-            Assert.Pass();
+        public void TestArchiveHeader() {
+            byte[] bsaMagic = Encoding.ASCII.GetBytes("BSA\0");
+            Assert.IsTrue(archive.header.fileId.SequenceEqual(bsaMagic));
+            Assert.AreEqual(archive.header.version, 104);
+            var flags = archive.header.archiveFlags;
+            Assert.IsTrue(flags.HasFlag("Include Directory Names"));
+            Assert.IsTrue(flags.HasFlag("Include File Names"));
+            Assert.IsTrue(flags.HasFlag("Compressed"));
+            Assert.IsTrue(flags.HasFlag("Retain Directory Names"));
+            Assert.IsTrue(flags.HasFlag("Retain File Names"));
+            Assert.IsTrue(flags.HasFlag("Retain File Name Offsets"));
+            Assert.IsFalse(flags.HasFlag("Xbox 360 Archive"));
+            Assert.IsTrue(flags.HasFlag("Retain Strings During Startup"));
+            Assert.IsTrue(flags.HasFlag("Embed File Names"));
+            Assert.IsTrue(flags.HasFlag("XMem Codec"));
         }
     }
 }

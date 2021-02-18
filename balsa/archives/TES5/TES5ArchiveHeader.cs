@@ -2,15 +2,15 @@
 
 namespace balsa.archives {
     public class TES5ArchiveHeader {
-        internal byte[] fileId;
-        internal UInt32 version;
-        internal UInt32 folderOffset;
-        internal TES5ArchiveFlags archiveFlags;
-        internal UInt32 folderCount;
-        internal UInt32 fileCount;
-        internal UInt32 totalFolderNameLength;
-        internal UInt32 totalFileNameLength;
-        internal UInt32 fileFlags;
+        public byte[] fileId { get; internal set; }
+        public UInt32 version { get; internal set; }
+        public UInt32 folderOffset { get; internal set; }
+        public TES5ArchiveFlags archiveFlags { get; internal set; }
+        public UInt32 folderCount { get; internal set; }
+        public UInt32 fileCount { get; internal set; }
+        public UInt32 totalFolderNameLength { get; internal set; }
+        public UInt32 totalFileNameLength { get; internal set; }
+        public UInt32 fileFlags { get; internal set; }
 
         public static TES5ArchiveHeader Read(ArchiveFileSource source) {
             return new TES5ArchiveHeader() {
