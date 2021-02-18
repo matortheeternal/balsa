@@ -32,11 +32,11 @@ namespace balsa.shared {
             reader = new BinaryReader(stream);
         }
 
-        internal dynamic ReadPrefix(int prefixLength) {
+        internal int ReadPrefix(int prefixLength) {
             switch (prefixLength) {
                 case 1: return reader.ReadByte();
                 case 2: return reader.ReadUInt16();
-                case 4: return reader.ReadUInt32();
+                case 4: return (int) reader.ReadUInt32();
             }
             throw new Exception($"Unknown prefix length {prefixLength}");
         }
@@ -65,8 +65,8 @@ namespace balsa.shared {
 
         internal string ReadString(int prefixLength = 0, bool nullTerminated = true) {
             if (prefixLength > 0) {
-                dynamic len = ReadPrefix(prefixLength);
-                if (nullTerminated) len--;
+                int len = ReadPrefix(prefixLength);
+                if (nullTerminated) len -= 1;
                 return ReadBString(len);
             }
             if (!nullTerminated)
