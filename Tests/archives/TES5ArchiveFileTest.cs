@@ -4,6 +4,7 @@ using balsa.archives;
 using balsa;
 using System.Linq;
 using System.Text;
+using System.Collections.Generic;
 
 namespace Tests.archives {
     public class TES5ArchiveFileTest {
@@ -59,7 +60,10 @@ namespace Tests.archives {
 
         [Test]
         public void TestFolders() {
-            Assert.Pass();
+            List<FolderRecord> folderRecords = archive.GetFolderRecords();
+            Assert.AreEqual(1, folderRecords.Count);
+            var folderRecord = folderRecords[0];
+            Assert.AreEqual("interface", folderRecord.name);
         }
     }
 }

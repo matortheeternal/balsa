@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace balsa.archives {
@@ -86,6 +87,10 @@ namespace balsa.archives {
             var folderName = Path.GetDirectoryName(filePath);
             var folderRecord = GetFolderRecord(folderName);
             return folderRecord.GetFileRecord(Path.GetFileName(filePath));
+        }
+
+        public override List<FolderRecord> GetFolderRecords() {
+            return new List<FolderRecord>(folderRecords);
         }
     }
 }

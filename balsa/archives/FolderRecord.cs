@@ -9,7 +9,7 @@ namespace balsa.archives {
         internal ArchiveFile archive;
         internal FileRecordBlock fileRecordBlock;
         
-        internal string name => fileRecordBlock.name;
+        public string name => fileRecordBlock.name;
         internal ArchiveFileSource source => archive.source;
         internal int index => archive.GetFolderRecordIndex(this);
 
