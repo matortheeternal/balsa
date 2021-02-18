@@ -1,5 +1,6 @@
 using NUnit.Framework;
 using balsa.setup;
+using balsa;
 
 namespace Tests.setup {
     public class AssetManagerTests {
@@ -7,7 +8,7 @@ namespace Tests.setup {
 
         [OneTimeSetUp]
         public void Setup() {
-            manager = new AssetManager();
+            manager = new AssetManager(Games.TES5);
         }
 
         [Test]

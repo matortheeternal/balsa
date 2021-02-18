@@ -21,18 +21,27 @@ namespace Tests.archives {
         public void TestArchiveHeader() {
             byte[] bsaMagic = Encoding.ASCII.GetBytes("BSA\0");
             Assert.IsTrue(archive.header.fileId.SequenceEqual(bsaMagic));
-            Assert.AreEqual(archive.header.version, 104);
+            Assert.AreEqual(104, archive.header.version);
+            Assert.AreEqual(1, archive.header.folderCount);
+            Assert.AreEqual(1, archive.header.fileCount);
+            Assert.AreEqual(10, archive.header.totalFolderNameLength);
+            Assert.AreEqual(9, archive.header.totalFileNameLength);
+            Assert.AreEqual(256, archive.header.fileFlags);
+        }
+
+        [Test]
+        public void TestArchiveFlags() {
             var flags = archive.header.archiveFlags;
             Assert.IsTrue(flags.HasFlag("Include Directory Names"));
             Assert.IsTrue(flags.HasFlag("Include File Names"));
-            Assert.IsTrue(flags.HasFlag("Compressed"));
-            Assert.IsTrue(flags.HasFlag("Retain Directory Names"));
-            Assert.IsTrue(flags.HasFlag("Retain File Names"));
-            Assert.IsTrue(flags.HasFlag("Retain File Name Offsets"));
+            Assert.IsFalse(flags.HasFlag("Compressed"));
+            Assert.IsFalse(flags.HasFlag("Retain Directory Names"));
+            Assert.IsFalse(flags.HasFlag("Retain File Names"));
+            Assert.IsFalse(flags.HasFlag("Retain File Name Offsets"));
             Assert.IsFalse(flags.HasFlag("Xbox 360 Archive"));
-            Assert.IsTrue(flags.HasFlag("Retain Strings During Startup"));
-            Assert.IsTrue(flags.HasFlag("Embed File Names"));
-            Assert.IsTrue(flags.HasFlag("XMem Codec"));
+            Assert.IsFalse(flags.HasFlag("Retain Strings During Startup"));
+            Assert.IsFalse(flags.HasFlag("Embed File Names"));
+            Assert.IsFalse(flags.HasFlag("XMem Codec"));
         }
     }
 }
