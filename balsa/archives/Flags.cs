@@ -15,7 +15,7 @@ namespace balsa.archives {
 
         public bool HasFlag(string flag) {
             var index = GetFlagIndex(flag);
-            return (data & (1 << index)) == 1;
+            return (data & (1 << index)) != 0;
         }
 
         public void SetFlag(string flag) {
