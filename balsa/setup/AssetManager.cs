@@ -16,6 +16,7 @@ namespace balsa.setup {
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             var prefix = $"balsa.archives.{game.abbreviation}";
             archiveFileType = Type.GetType($"{prefix}ArchiveFile");
+            containers = new List<FileContainer>();
         }
 
         public ArchiveFile LoadArchive(string filePath) {
