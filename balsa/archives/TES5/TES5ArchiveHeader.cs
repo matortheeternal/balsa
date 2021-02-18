@@ -10,7 +10,7 @@ namespace balsa.archives {
         public UInt32 fileCount { get; internal set; }
         public UInt32 totalFolderNameLength { get; internal set; }
         public UInt32 totalFileNameLength { get; internal set; }
-        public UInt32 fileFlags { get; internal set; }
+        public TES5FileFlags fileFlags { get; internal set; }
 
         public static TES5ArchiveHeader Read(ArchiveFileSource source) {
             return new TES5ArchiveHeader() {
@@ -22,7 +22,7 @@ namespace balsa.archives {
                 fileCount = source.reader.ReadUInt32(),
                 totalFolderNameLength = source.reader.ReadUInt32(),
                 totalFileNameLength = source.reader.ReadUInt32(),
-                fileFlags = source.reader.ReadUInt32()
+                fileFlags = TES5FileFlags.Read(source)
             };
         }
     }

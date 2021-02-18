@@ -26,7 +26,20 @@ namespace Tests.archives {
             Assert.AreEqual(1, archive.header.fileCount);
             Assert.AreEqual(10, archive.header.totalFolderNameLength);
             Assert.AreEqual(9, archive.header.totalFileNameLength);
-            Assert.AreEqual(256, archive.header.fileFlags);
+        }
+
+        [Test]
+        public void TestFileFlags() {
+            var flags = archive.header.fileFlags;
+            Assert.IsFalse(flags.HasFlag("Meshes"));
+            Assert.IsFalse(flags.HasFlag("Textures"));
+            Assert.IsFalse(flags.HasFlag("Menus"));
+            Assert.IsFalse(flags.HasFlag("Sounds"));
+            Assert.IsFalse(flags.HasFlag("Voices"));
+            Assert.IsFalse(flags.HasFlag("Shaders"));
+            Assert.IsFalse(flags.HasFlag("Trees"));
+            Assert.IsFalse(flags.HasFlag("Fonts"));
+            Assert.IsTrue(flags.HasFlag("Miscellaneous"));
         }
 
         [Test]
@@ -42,6 +55,11 @@ namespace Tests.archives {
             Assert.IsFalse(flags.HasFlag("Retain Strings During Startup"));
             Assert.IsFalse(flags.HasFlag("Embed File Names"));
             Assert.IsFalse(flags.HasFlag("XMem Codec"));
+        }
+
+        [Test]
+        public void TestFolders() {
+            Assert.Pass();
         }
     }
 }
