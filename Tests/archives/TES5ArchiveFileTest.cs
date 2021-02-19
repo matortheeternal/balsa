@@ -59,7 +59,7 @@ namespace Tests.archives {
         }
 
         [Test]
-        public void TestFolders() {
+        public void TestRecords() {
             List<FolderRecord> folderRecords = archive.GetFolderRecords();
             Assert.AreEqual(1, folderRecords.Count);
             var folderRecord = folderRecords[0];
@@ -69,6 +69,18 @@ namespace Tests.archives {
             Assert.AreEqual(1, fileRecords.Count);
             var fileRecord = fileRecords[0];
             Assert.AreEqual("test.txt", fileRecord.fileName);
+        }
+
+        [Test]
+        public void TestData() {
+            var fileRecord = archive.GetFileRecord(@"interface\test.txt");
+            Assert.IsNotNull(fileRecord);
+            var actualText = Encoding.ASCII.GetString(fileRecord.data);
+            var expectedText =
+                "This is a test file for use in a TES5 BSA file.\r\n" +
+                "\r\n" +
+                "Produced by Mator 02/17/2021.";
+            Assert.AreEqual(expectedText, actualText);
         }
     }
 }
