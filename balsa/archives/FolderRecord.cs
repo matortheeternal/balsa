@@ -3,11 +3,11 @@ using System.IO;
 
 namespace balsa.archives {
     public class FolderRecord {
-        internal byte[] hash;
-        internal UInt32 fileCount;
-        internal UInt32 offset;
-        internal ArchiveFile archive;
-        internal FileRecordBlock fileRecordBlock;
+        public byte[] hash { get; internal set; }
+        public UInt32 fileCount { get; internal set; }
+        public UInt32 offset { get; internal set; }
+        public ArchiveFile archive { get; internal set; }
+        public FileRecordBlock fileRecordBlock { get; internal set; }
         
         public string name => fileRecordBlock.name;
         internal ArchiveFileSource source => archive.source;

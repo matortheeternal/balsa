@@ -64,6 +64,11 @@ namespace Tests.archives {
             Assert.AreEqual(1, folderRecords.Count);
             var folderRecord = folderRecords[0];
             Assert.AreEqual("interface", folderRecord.name);
+            Assert.AreEqual(1, folderRecord.fileCount);
+            var fileRecords = folderRecord.fileRecordBlock.GetFileRecords();
+            Assert.AreEqual(1, fileRecords.Count);
+            var fileRecord = fileRecords[0];
+            Assert.AreEqual("test.txt", fileRecord.fileName);
         }
     }
 }

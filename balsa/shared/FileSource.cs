@@ -58,16 +58,16 @@ namespace balsa.shared {
             return stringEncoding.GetString(bytes, 0, i);
         }
 
-        internal string ReadBString(int len) {
+        internal string ReadBString(int len, bool nullTerminated) {
             var bytes = reader.ReadBytes(len);
+            if (nullTerminated) len--;
             return stringEncoding.GetString(bytes, 0, len);
         }
 
         internal string ReadString(int prefixLength = 0, bool nullTerminated = true) {
             if (prefixLength > 0) {
                 int len = ReadPrefix(prefixLength);
-                if (nullTerminated) len -= 1;
-                return ReadBString(len);
+                return ReadBString(len, nullTerminated);
             }
             if (!nullTerminated)
                 throw new Exception("Cannot read unterminated string of unknown length.");

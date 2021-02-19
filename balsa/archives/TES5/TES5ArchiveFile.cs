@@ -30,7 +30,7 @@ namespace balsa.archives {
         private void ReadFolderRecords() {
             folderRecords = new TES5FolderRecord[header.folderCount];
             for (int i = 0; i < header.folderCount; i++)
-                folderRecords[i] = TES5FolderRecord.Read(source);
+                folderRecords[i] = TES5FolderRecord.Read(this);
         }
 
         private void ReadFileRecordBlocks() {

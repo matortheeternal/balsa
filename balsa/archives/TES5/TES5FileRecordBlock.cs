@@ -6,7 +6,7 @@
                 block.name = block.source.ReadString(1);
             block.fileRecords = new FileRecord[folderRecord.fileCount];
             for (int i = 0; i < folderRecord.fileCount; i++)
-                block.fileRecords[i] = TES5FileRecord.Read(block.source);
+                block.fileRecords[i] = TES5FileRecord.Read(block);
             return block;
         }
     }

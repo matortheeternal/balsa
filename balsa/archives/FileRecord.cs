@@ -3,10 +3,10 @@ using System.IO;
 
 namespace balsa.archives {
     public class FileRecord {
-        internal FileRecordBlock fileRecordBlock;
-        internal byte[] hash;
-        internal UInt32 size;
-        internal UInt32 offset;
+        public FileRecordBlock fileRecordBlock { get; internal set; }
+        public byte[] hash { get; internal set; }
+        public UInt32 size { get; internal set; }
+        public UInt32 offset { get; internal set; }
 
         internal bool compressionToggle => (size & 0x40000000) == 1;
 
@@ -17,7 +17,7 @@ namespace balsa.archives {
             get => archive.GetFileRecordIndex(this);
         }
 
-        internal string fileName {
+        public string fileName {
             get => archive.GetFileName(this);
         }
 
@@ -28,7 +28,7 @@ namespace balsa.archives {
             }
         }
 
-        internal byte[] data {
+        public byte[] data {
             get {
                 source.stream.Position = offset;
                 bool compressed = source.archive.compressed ^ compressionToggle;
