@@ -1,4 +1,5 @@
 ﻿using balsa.archives;
+using balsa.stringtables;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -10,12 +11,15 @@ namespace balsa.setup {
         public List<FileContainer> containers;
         public readonly Game game;
         internal Type archiveFileType;
+        internal Type stringFileType;
 
         public AssetManager(Game game) {
             this.game = game;
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             var prefix = $"balsa.archives.{game.abbreviation}";
             archiveFileType = Type.GetType($"{prefix}ArchiveFile");
+            prefix = $"balsa.stringtables.{game.abbreviation}";
+            stringFileType = Type.GetType($"{prefix}StringFile");
             containers = new List<FileContainer>();
         }
 
@@ -31,6 +35,17 @@ namespace balsa.setup {
             return archive;
         }
 
+        public StringFile LoadStrings(string filePath) {
+            var fileName = Path.GetFileName(filePath);
+            StringFile stringFile = (StringFile)Activator.CreateInstance(
+                stringFileType, new object[1] { fileName }
+            );
+            new StringFileSource(filePath, stringFile);
+            stringFile.ReadHeader();
+            stringFile.ReadBody();
+            return stringFile;
+        }
+
         public List<string> GetLoadedContainers() {
             return containers.Select(fc => fc.path).ToList();
         }
@@ -39,7 +54,7 @@ namespace balsa.setup {
             // ?
         }
 
-        public void BuildArchive(List<string> filePaths) {
+        public void BuildArchive(string outputPath, List<string> filePaths) {
             // ?
         }
 
