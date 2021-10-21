@@ -8,6 +8,8 @@ namespace balsa.archives {
         public TES5ArchiveHeader header { get; internal set; }
         internal TES5FolderRecord[] folderRecords;
         internal string[] fileNames;
+        // TODO: faster implementation via caching?
+        internal override bool compressed => header.archiveFlags.HasFlag("Compressed");
 
         public TES5ArchiveFile(string fileName) : base(fileName) { }
 
