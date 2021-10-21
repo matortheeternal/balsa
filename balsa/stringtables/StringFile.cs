@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text;
 using System.IO;
+using System.Collections.Generic;
 
 namespace balsa.stringtables {
     public class StringFile {
@@ -12,6 +13,7 @@ namespace balsa.stringtables {
 
         internal virtual Encoding encoding => windows1252;
         public string filePath => source?.filePath;
+        public Dictionary<UInt32, string> strings => GetStrings();
 
         public StringFile(string filename) {
             this.filename = filename;
@@ -34,6 +36,10 @@ namespace balsa.stringtables {
         }
 
         internal virtual void ReadBody() {
+            throw new NotImplementedException();
+        }
+
+        internal virtual Dictionary<UInt32, string> GetStrings() {
             throw new NotImplementedException();
         }
     }
