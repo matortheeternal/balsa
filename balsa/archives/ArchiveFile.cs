@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
+using balsa.shared;
 
 namespace balsa.archives {
     public class ArchiveFile : FileContainer {
@@ -63,6 +65,28 @@ namespace balsa.archives {
 
         public virtual List<FolderRecord> GetFolderRecords() {
             throw new NotImplementedException();
+        }
+
+        public override List<string> GetFiles() {
+            return GetFolderRecords().SelectMany(folderRec => {
+                return folderRec.filePaths;
+            }).ToList();
+        }
+
+        public override List<string> EnumerateEntries(string subPath) {
+            var results = new List<string>();
+            GetFolderRecords().ForEach(folderRecord => {
+                var folderPath = folderRecord.name;
+                if (!folderPath.StartsWith(subPath)) return;
+                if (folderPath.Length > subPath.Length) {
+                    var folderName = folderPath.Substring(subPath.Length);
+                    if (folderName.IndexOf(@"\") > -1) return;
+                    results.Add(folderPath);
+                } else {
+                    results.AddRange(folderRecord.filePaths);
+                }
+            });
+            return results;
         }
     }
 }

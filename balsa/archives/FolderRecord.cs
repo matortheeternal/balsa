@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace balsa.archives {
     public class FolderRecord {
@@ -12,6 +14,14 @@ namespace balsa.archives {
         public string name => fileRecordBlock.name;
         internal ArchiveFileSource source => archive.source;
         internal int index => archive.GetFolderRecordIndex(this);
+
+        public IEnumerable<string> filePaths {
+            get {
+                return fileRecordBlock.fileRecords.Select(fileRec => {
+                    return Path.Combine(name, fileRec.fileName);
+                });
+            }
+        }
 
         internal void ExtractTo(string outputPath) {
             Directory.CreateDirectory(outputPath);
