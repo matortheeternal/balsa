@@ -1,5 +1,6 @@
 ﻿using balsa.archives;
 using balsa.stringtables;
+using balsa.shared;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -12,6 +13,10 @@ namespace balsa.setup {
         public readonly Game game;
         internal Type archiveFileType;
         internal Type stringFileType;
+
+        private static readonly string[] stringTableExtensions = {
+            ".strings", ".ilstrings", ".dlstrings"
+        };
 
         public AssetManager(Game game) {
             this.game = game;
@@ -50,8 +55,28 @@ namespace balsa.setup {
             return containers.Select(fc => fc.path).ToList();
         }
 
-        public void LoadFolder(string path) {
-            // ?
+        public FolderContainer LoadFolder(string path) {
+            FolderContainer folder = new FolderContainer(path);
+            containers.Add(folder);
+            return folder;
+        }
+
+        public List<string> EnumerateEntries(string folderPath) {
+            return containers.SelectMany(container => {
+                return container.EnumerateEntries(folderPath);
+            }).ToList();
+        }
+
+        public Dictionary<string, List<string>> GetStringTables() {
+            var m = new Dictionary<string, List<string>>();
+            EnumerateEntries(@"strings\").ForEach(filePath => {
+                var ext = Path.GetExtension(filePath);
+                if (!stringTableExtensions.Contains(ext)) return;
+                var key = Path.GetFileNameWithoutExtension(filePath);
+                if (!m.ContainsKey(key)) m.Add(key, new List<string>());
+                m[key].Add(filePath);
+            });
+            return m;
         }
 
         public void BuildArchive(string outputPath, List<string> filePaths) {
