@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Text;
 using System.IO;
 using System.Collections.Generic;
@@ -13,7 +13,15 @@ namespace balsa.stringtables {
 
         internal virtual Encoding encoding => windows1252;
         public string filePath => source?.filePath;
-        public Dictionary<UInt32, string> strings => GetStrings();
+
+        private Dictionary<UInt32, string> _strings;
+        public Dictionary<UInt32, string> strings {
+            get {
+                if (_strings == null)
+                    _strings = GetStrings();
+                return _strings;
+            }
+        }
 
         public StringFile(string filename) {
             this.filename = filename;
