@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Text;
 using System.IO;
 using System.Collections.Generic;
@@ -13,6 +13,7 @@ namespace balsa.stringtables {
 
         internal virtual Encoding encoding => windows1252;
         public string filePath => source?.filePath;
+        public StringFileType stringFileType;
 
         private Dictionary<UInt32, string> _strings;
         public Dictionary<UInt32, string> strings {
@@ -28,10 +29,15 @@ namespace balsa.stringtables {
             var ext = Path.GetExtension(filename).ToLower();
             switch (ext) {
                 case ".strings":
+                    stringFileType = StringFileType.STRINGS;
                     prefixLength = 0;
                     break;
                 case ".ilstrings":
+                    stringFileType = StringFileType.ILSTRINGS;
+                    prefixLength = 4;
+                    break;
                 case ".dlstrings":
+                    stringFileType = StringFileType.DLSTRINGS;
                     prefixLength = 4;
                     break;
                 default:
