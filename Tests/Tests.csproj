@@ -1,19 +1,33 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
 
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="nunit" Version="3.12.0" />
-    <PackageReference Include="NUnit3TestAdapter" Version="3.15.1" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.4.0" />
+    <PackageReference Include="nunit" Version="3.14.0" />
+    <PackageReference Include="NUnit3TestAdapter" Version="6.3.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.9.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\balsa\balsa.csproj" />
   </ItemGroup>
+
+  <PropertyGroup>
+    <!-- $(SolutionDir) is only defined for solution builds; fall back so
+         `dotnet build Tests/Tests.csproj` works too. -->
+    <SolutionDir Condition="'$(SolutionDir)' == '' Or '$(SolutionDir)' == '*Undefined*'">$(MSBuildProjectDirectory)/../</SolutionDir>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <FixtureFiles Include="$(SolutionDir)fixtures/**/*" />
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Copy SourceFiles="@(FixtureFiles)" DestinationFiles="@(FixtureFiles->'$(TargetDir)fixtures/%(RecursiveDir)%(Filename)%(Extension)')" SkipUnchangedFiles="true" />
+  </Target>
 
 </Project>
