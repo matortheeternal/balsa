@@ -86,9 +86,19 @@ namespace balsa.archives {
         }
 
         public override FileRecord GetFileRecord(string filePath) {
-            var folderName = Path.GetDirectoryName(filePath);
+            // Split on either separator explicitly: Path.GetDirectoryName
+            // only recognizes the OS separator, so Windows-style archive
+            // paths (backslash) fail on Linux.
+            var normalizedPath = filePath.Replace('\\', '/');
+            var separatorIndex = normalizedPath.LastIndexOf('/');
+            var folderName = separatorIndex < 0
+                ? ""
+                : normalizedPath.Substring(0, separatorIndex);
+            var fileName = separatorIndex < 0
+                ? normalizedPath
+                : normalizedPath.Substring(separatorIndex + 1);
             var folderRecord = GetFolderRecord(folderName);
-            return folderRecord.GetFileRecord(Path.GetFileName(filePath));
+            return folderRecord.GetFileRecord(fileName);
         }
 
         public override List<FolderRecord> GetFolderRecords() {
