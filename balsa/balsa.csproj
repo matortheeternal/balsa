@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="Iconic.Zlib.Netstandard" Version="1.0.0" />
+    <PackageReference Include="K4os.Compression.LZ4" Version="1.2.16" />
   </ItemGroup>
 
 </Project>

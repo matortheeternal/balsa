@@ -8,7 +8,7 @@ namespace balsa.archives {
         public UInt32 size { get; internal set; }
         public UInt32 offset { get; internal set; }
 
-        internal bool compressionToggle => (size & 0x40000000) == 1;
+        internal bool compressionToggle => (size & 0x40000000) != 0;
 
         internal ArchiveFileSource source => fileRecordBlock.source;
         internal ArchiveFile archive => fileRecordBlock.archive;

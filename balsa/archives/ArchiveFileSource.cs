@@ -15,7 +15,7 @@ namespace balsa.archives {
             archive.source = this;
         }
 
-        internal byte[] Decompress(int dataSize) {
+        internal virtual byte[] Decompress(int dataSize) {
             var decompressedDataSize = reader.ReadUInt32();
             var zstream = new ZlibStream(stream, CompressionMode.Decompress);
             var zreader = new BinaryReader(zstream);

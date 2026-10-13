@@ -7,7 +7,7 @@ namespace balsa.archives {
     public class FolderRecord {
         public byte[] hash { get; internal set; }
         public UInt32 fileCount { get; internal set; }
-        public UInt32 offset { get; internal set; }
+        public UInt64 offset { get; internal set; }
         public ArchiveFile archive { get; internal set; }
         public FileRecordBlock fileRecordBlock { get; internal set; }
         

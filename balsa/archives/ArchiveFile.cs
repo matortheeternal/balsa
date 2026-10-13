@@ -27,6 +27,10 @@ namespace balsa.archives {
             this.fileName = fileName;
         }
 
+        internal virtual ArchiveFileSource CreateSource(string filePath) {
+            return new ArchiveFileSource(filePath, this);
+        }
+
         internal virtual void ReadHeader() {
             throw new NotImplementedException();
         }
