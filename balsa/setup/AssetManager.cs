@@ -33,7 +33,7 @@ namespace balsa.setup {
             ArchiveFile archive = (ArchiveFile) Activator.CreateInstance(
                 archiveFileType, new object[1] { fileName }
             );
-            new ArchiveFileSource(filePath, archive);
+            archive.CreateSource(filePath);
             archive.ReadHeader();
             archive.ReadBody();
             containers.Add(archive);
